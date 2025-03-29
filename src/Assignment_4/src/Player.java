@@ -1,47 +1,44 @@
-// Author : Shibin Shaji
-// Date created : March 20. 2025
-// Purpose of program is to get familiar using getter/setter and exception handling
-public class Player {
-    private String name; //instance variable declaration
-    private int wins;
+class Player {
+    private String name;
     private int score;
 
-    // Getting player name
-    public String getterName() {
+    // Constructor to initialize player
+    public Player(String playerName) {
+        if (playerName == null || playerName.trim().length()== 0) {  // Throw exception if name is empty
+            throw new IllegalArgumentException("Player name cannot be empty");
+        }
+        setName(playerName);  // Using setter for name
+        setScore(0); // Initialize score to 0 using setter method
+    }
+
+    // Getter for name
+    public String getName() {
         return name;
     }
-    // Getting number of wins
-    public int getterWins() {
-        return wins;
+
+    // Setter for name with validation
+    public void setName(String playerName) {
+        if (playerName == null || playerName.trim().length() == 0) {
+            throw new IllegalArgumentException("Player name cannot be empty"); // Throw exception if name is empty
+        }
+        name = playerName;  // Setting name
     }
-    // Getting score
-    public int getterScore() {
+
+    // Getter for score
+    public int getScore() {
         return score;
     }
-    // Validation and setting players name
-    public void setterName(String playerName) {
-        if (playerName == null) {
-            throw new IllegalArgumentException("Name cannot be empty"); // Throwing an exception
+
+    // Setter for score with validation to ensure it is non-negative
+    public void setScore(int newScore) {
+        if (newScore < 0) {
+            throw new IllegalArgumentException("Score cannot be negative");  // Validate that score is not negative
         }
-        name = playerName;
+        score = newScore;  // Setting score
     }
-    // Setting number of wins and validation
-    public void setterWins(int number) {
-        if (number < 0) {
-            throw new IllegalArgumentException("Win cannot be negative.");
-        }
-        wins = number;
-    }
-    // Setting the scores of player
-    public void setterScore(int playerScore) {
-        if (playerScore < 0) {
-            throw new IllegalArgumentException("Score cannot be negative.");
-        }
-        score = playerScore;
-    }
-    // Overriding the toString method to display the information of player
-    @Override
-    public String toString() {
-        return "Player{name='" + name + "', wins=" + wins + ", score=" + score + "}";
+
+    // Method to update score which is used in the game class
+    public void updateScore(int scoreChange) {
+        setScore(getScore() + scoreChange);  // Using getter and setter to update score
     }
 }
